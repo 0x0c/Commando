@@ -38,7 +38,7 @@ public:
 		
 	}
 
-	void receive(bool async) {
+	void receive() {
 		this->receive_socket.async_receive_from(boost::asio::buffer(this->receive_buffer), this->receive_endpoint, boost::bind(&Commando::receive_handler, this, asio::placeholders::error, asio::placeholders::bytes_transferred));
 	}
 
@@ -54,6 +54,6 @@ public:
 		if (this->did_receive_handler) {
 			this->did_receive_handler(error, this->receive_buffer, length);
 		}
-		this->receive();
+		this->receive_async();
 	}
 };
